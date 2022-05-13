@@ -4,7 +4,7 @@ from __future__ import (absolute_import, division, print_function,
 import os.path
 from functools import partial
 
-import editdistance
+import Levenshtein
 import numpy as np
 import regex as re
 import pkg_resources
@@ -140,7 +140,7 @@ class Distance(object):
             int: minimum number of Levenshtein edits required to get from
                  `source` to `target`
         """
-        return int(editdistance.eval(source, target))
+        return int(Levenshtein.distance(source, target))
 
     def fast_levenshtein_distance_div_maxlen(self, source, target):
         """Levenshtein distance divided by maxlen
@@ -155,7 +155,7 @@ class Distance(object):
                  of these arguments
         """
         maxlen = max(len(source), len(target))
-        return int(editdistance.eval(source, target)) / maxlen
+        return int(Levenshtein.distance(source, target)) / maxlen
 
     def dolgo_prime_distance(self, source, target):
         """Levenshtein distance using D' phonetic equivalence classes
